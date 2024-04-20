@@ -2,6 +2,4 @@
 
 using namespace TestLibrary;
 
-int main() {
-    hello();
-}
+int main() { cout << randInt(); }
