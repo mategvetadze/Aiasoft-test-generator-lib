@@ -4,10 +4,10 @@ using namespace std;
 
 int main() {
     Library abc;
-    int a[5];
-    abc.randArray(a,5);
-    for (int i : a) {
-        cout<<i<<" ";
+    pair<int,int> edges[100];
+    abc.randomGraph(edges,10,5);
+    for (int i=0;i<5;i++) {
+        cout<<edges[i].first<<" "<<edges[i].second<<endl;
     }
     return 0;
 }

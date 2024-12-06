@@ -8,7 +8,7 @@ namespace TestLibrary {
 
         void check() {
             if (!indicator) {
-                srand(time((unsigned) 0));
+                srand(time(nullptr));
                 indicator = true;
             }
         }
@@ -177,16 +177,77 @@ namespace TestLibrary {
                 a[k] = randInt(mx);
         }
 
-        void rand2DArray(int a[][], int n, int m) {
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < m; j++)
-                    a[i][j] = randInt();
+
+        void randArray(vector<int> &a, int n) {
+            a.resize(n);
+            for (int k = 0; k < n; k++)
+                a[k] = randInt();
         }
 
-        void rand2DArray(int a[][], int n, int m, int mx) {
-            for (int i = 0; i < n; i++)
+        void randArray(vector<int> &a, int n, int mx) {
+            a.resize(n);
+            for (int k = 0; k < n; k++)
+                a[k] = randInt(mx);
+        }
+
+        void rand2DArray(vector<vector<int> > &a, int n, int m) {
+            a.resize(n);
+            for (int i = 0; i < n; i++) {
+                a[i].resize(m);
+                for (int j = 0; j < m; j++)
+                    a[i][j] = randInt();
+            }
+        }
+
+        void rand2DArray(vector<vector<int> > &a, int n, int m, int mx) {
+            a.resize(n);
+            for (int i = 0; i < n; i++) {
+                a[i].resize(m);
                 for (int j = 0; j < m; j++)
                     a[i][j] = randInt(mx);
+            }
         }
+
+        vector<pair<int, int> > randomGraph(int n, int m) {
+            set<pair<int, int> > edges;
+            while (edges.size() < m) {
+                int x = randInt(1, n);
+                int y = randInt(1, n);
+                if (x != y) {
+                    if (x > y) swap(x, y);
+                    edges.insert({x, y});
+                }
+            }
+            return vector<pair<int, int> >(edges.begin(), edges.end());
+        }
+        void randomGraph(vector<pair<int, int> > &edges, int n, int m) {
+            set<pair<int, int> > ed;
+            while (ed.size() < m) {
+                int x = randInt(1, n);
+                int y = randInt(1, n);
+                if (x != y) {
+                    if (x > y) swap(x, y);
+                    ed.insert({x, y});
+                }
+            }
+            edges = vector<pair<int, int> >(ed.begin(), ed.end());
+        }
+        void randomGraph(pair<int,int> edges[],int n,int m) {
+            set<pair<int,int>> ed;
+            while(ed.size()<m) {
+                int x = randInt(1,n);
+                int y = randInt(1,n);
+                if(x!=y) {
+                    if(x>y) swap(x,y);
+                    ed.insert({x,y});
+                }
+            }
+
+            for (auto k:ed) {
+                *edges = k;
+                edges++;
+            }
+        }
+
     }; // library class ends here
 } // namespace ends here
