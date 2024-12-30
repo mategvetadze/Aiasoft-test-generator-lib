@@ -1,253 +1,36 @@
-#include <bits/stdc++.h>
-using namespace std;
-
+#ifndef LIBRARY_H
+#define LIBRARY_H
+#include <string>
+#include <vector>
 namespace TestLibrary {
-    class Library {
-    private:
-        bool indicator = false;
+    // Public functions to be used by other files
+    int randInt(); // Generates a random integer
+    int randInt(int n); // Generates a random integer between 0 and n
+    int randInt(int l, int r); // Generates a random integer between l and r
+    char randLowChar(); // Generates a random lowercase character
+    char randUppChar(); // Generates a random uppercase character
+    char randChar(); // Generates a random character (any printable ASCII character)
+    int randNegInt(); // Generates a random negative integer
+    std::string randLowString(int n); // Generates a random lowercase string of length n
+    std::string randLowString(); // Generates a random lowercase string with random length
+    std::string randUppString(int n); // Generates a random uppercase string of length n
+    std::string randUppString(); // Generates a random uppercase string with random length
+    std::string RandBigInt(int n); // Generates a random big integer as a string of length n
+    std::string RandBigInt(); // Generates a random big integer as a string with random length
+    std::string randString(int n); // Generates a random string of length n
+    std::string randString(); // Generates a random string with random length
+    std::vector<int> randArray(int n, int mx); // Generates a random array of n elements, each between 0 and mx
+    std::vector<int> randArray(int n); // Generates a random array of n elements with random integers
+    std::vector<int> randArray(); // Generates a random array with random length and random integers
+    void randArray(int a[], int n); // Fills an integer array a with n random integers
+    void randArray(int a[], int n, int mx); // Fills an integer array a with n random integers between 0 and mx
+    void randArray(std::vector<int>& a, int n); // Fills a vector a with n random integers
+    void randArray(std::vector<int>& a, int n, int mx); // Fills a vector a with n random integers between 0 and mx
+    void rand2DArray(std::vector<std::vector<int>>& a, int n, int m); // Generates a random 2D array with n rows and m columns
+    void rand2DArray(std::vector<std::vector<int>>& a, int n, int m, int mx); // Generates a random 2D array with n rows and m columns, each element between 0 and mx
+    std::vector<std::pair<int, int>> randomGraph(int n, int m); // Generates a random graph with n nodes and m edges
+    void randomGraph(std::vector<std::pair<int, int>>& edges, int n, int m); // Fills a vector edges with m random edges from n nodes
+    void randomGraph(std::pair<int, int> edges[], int n, int m); // Fills an array edges with m random edges from n nodes
+}
 
-        void check() {
-            if (!indicator) {
-                srand(time(nullptr));
-                indicator = true;
-            }
-        }
-
-    public:
-        int randInt() {
-            check();
-            return rand();
-        }
-
-        int randInt(int n) {
-            check();
-            return rand() % (n + 1);
-        }
-
-        int randInt(int l, int r) {
-            check();
-            if (l > r) swap(l, r);
-            int n = (r - l) + 1;
-            return l + rand() % n;
-        }
-
-        char randLowChar() {
-            char ch = 'a' + randInt(25);
-            return ch;
-        }
-
-        char randUppChar() {
-            char ch = 'A' + randInt(25);
-            return ch;
-        }
-
-        char randChar() {
-            char ch = (char) randInt(32, 126);
-            return ch;
-        }
-
-        int randNegInt() {
-            int n = (-1) * randInt();
-            return n;
-        }
-
-        string randLowString(int n) {
-            string s;
-            for (int k = 0; k < n; k++) {
-                s = s + randLowChar();
-            }
-            return s;
-        }
-
-        string randLowString() {
-            int n = randInt();
-            string s;
-            for (int k = 0; k < n; k++) {
-                s = s + randLowChar();
-            }
-            return s;
-        }
-
-        string randUppString(int n) {
-            string s;
-            for (int k = 0; k < n; k++) {
-                s = s + randUppChar();
-            }
-            return s;
-        }
-
-        string randUppString() {
-            int n = randInt();
-            while (n == 0)
-                n = randInt();
-            string s;
-            for (int k = 0; k < n; k++) {
-                s = s + randUppChar();
-            }
-            return s;
-        }
-
-        string RandBigInt(int n) {
-            string s;
-            char ch;
-            ch = '0' + randInt(9);
-            s = s + ch;
-            if (n == 1)
-                return s;
-            while (s[0] == '0') {
-                ch = '0' + randInt(9);
-                s[0] = ch;
-            }
-            for (int k = 1; k < n; k++) {
-                ch = '0' + randInt(9);
-                s = s + ch;
-            }
-            return s;
-        }
-
-        string RandBigInt() {
-            int n = randInt();
-            while (n == 0)
-                n = randInt();
-            string s;
-            char ch;
-            ch = '0' + randInt(9);
-            s = s + ch;
-            if (n == 1)
-                return s;
-            while (s[0] == '0') {
-                ch = '0' + randInt(9);
-                s[0] = ch;
-            }
-            for (int k = 1; k < n; k++) {
-                ch = '0' + randInt(9);
-                s = s + ch;
-            }
-            return s;
-        }
-
-        string randString(int n) {
-            string s;
-            for (int k = 0; k < n; k++) {
-                s = s + randChar();
-            }
-            return s;
-        }
-
-        string randString() {
-            int n = randInt();
-            while (n == 0)
-                n = randInt();
-            string s;
-            for (int k = 0; k < n; k++) {
-                s.push_back(randChar());
-            }
-            return s;
-        }
-
-        vector<int> randArray(int n, int mx) {
-            vector<int> a(n);
-            for (int k = 0; k < n; k++)
-                a[k] = randInt(mx);
-            return a;
-        }
-
-        vector<int> randArray(int n) {
-            vector<int> a(n);
-            for (int k = 0; k < n; k++)
-                a[k] = randInt();
-            return a;
-        }
-
-        vector<int> randArray() {
-            int n = randInt();
-            vector<int> a(n);
-            for (int k = 0; k < n; k++)
-                a[k] = randInt();
-            return a;
-        }
-
-        void randArray(int a[], int n) {
-            for (int k = 0; k < n; k++)
-                a[k] = randInt();
-        }
-
-        void randArray(int a[], int n, int mx) {
-            for (int k = 0; k < n; k++)
-                a[k] = randInt(mx);
-        }
-
-
-        void randArray(vector<int> &a, int n) {
-            a.resize(n);
-            for (int k = 0; k < n; k++)
-                a[k] = randInt();
-        }
-
-        void randArray(vector<int> &a, int n, int mx) {
-            a.resize(n);
-            for (int k = 0; k < n; k++)
-                a[k] = randInt(mx);
-        }
-
-        void rand2DArray(vector<vector<int> > &a, int n, int m) {
-            a.resize(n);
-            for (int i = 0; i < n; i++) {
-                a[i].resize(m);
-                for (int j = 0; j < m; j++)
-                    a[i][j] = randInt();
-            }
-        }
-
-        void rand2DArray(vector<vector<int> > &a, int n, int m, int mx) {
-            a.resize(n);
-            for (int i = 0; i < n; i++) {
-                a[i].resize(m);
-                for (int j = 0; j < m; j++)
-                    a[i][j] = randInt(mx);
-            }
-        }
-
-        vector<pair<int, int> > randomGraph(int n, int m) {
-            set<pair<int, int> > edges;
-            while (edges.size() < m) {
-                int x = randInt(1, n);
-                int y = randInt(1, n);
-                if (x != y) {
-                    if (x > y) swap(x, y);
-                    edges.insert({x, y});
-                }
-            }
-            return vector<pair<int, int> >(edges.begin(), edges.end());
-        }
-        void randomGraph(vector<pair<int, int> > &edges, int n, int m) {
-            set<pair<int, int> > ed;
-            while (ed.size() < m) {
-                int x = randInt(1, n);
-                int y = randInt(1, n);
-                if (x != y) {
-                    if (x > y) swap(x, y);
-                    ed.insert({x, y});
-                }
-            }
-            edges = vector<pair<int, int> >(ed.begin(), ed.end());
-        }
-        void randomGraph(pair<int,int> edges[],int n,int m) {
-            set<pair<int,int>> ed;
-            while(ed.size()<m) {
-                int x = randInt(1,n);
-                int y = randInt(1,n);
-                if(x!=y) {
-                    if(x>y) swap(x,y);
-                    ed.insert({x,y});
-                }
-            }
-
-            for (auto k:ed) {
-                *edges = k;
-                edges++;
-            }
-        }
-
-    }; // library class ends here
-} // namespace ends here
+#endif // LIBRARY_H
