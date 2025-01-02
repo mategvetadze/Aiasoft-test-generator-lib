@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
+#include <set>
 
 // Private: anonymous namespace hides the implementation details
 namespace {
